@@ -20,7 +20,12 @@
 
 ## Setup
 
-Clone down the [errors and validations Tunr repo](https://github.com/ga-dc/tunr_rails_errors_validations).
+We'll be using the version of Tunr that has fully working CRUD functionality.
+
+I'll be adding to the 'Todo' app called [Reminderly](https://github.com/ga-wdi-exercises/reminderly),
+while you'll be working on your Tunr app.
+
+Starter code can be found on the `edit-update` branch of the [tunr features repo](https://github.com/ga-wdi-exercises/tunr_rails_features/tree/edit-update)
 
 ## Lesson Sections
 
