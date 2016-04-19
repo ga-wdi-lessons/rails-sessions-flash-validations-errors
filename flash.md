@@ -1,13 +1,16 @@
 # Messages to the User
 
-Our app works, but it also breaks quite easily. It's useful for *us* when the app breaks because we can see where all the errors are... but those big red error pages don't make for a very good user experience.
+Our app works, but it also breaks quite easily. It's useful for *us* when the
+app breaks because we can see where all the errors are... but those big red
+error pages don't make for a very good user experience.
 
 ## Framing
 
-It would be nice if we could find a *nice* way let the user know that their artist was successfully created.  
+It would be nice if we could find a *nice* way let the user know that their
+artist was successfully created.  
 
-Q. Based on what we've learned so far, how could you show the user a message that their Artist was successfully created?
----
+Q. Based on what we've learned so far, how could you show the user a message
+that their Artist was successfully created?
 
 > A. The easiest way would be to just create an instance variable `@message`.
 
@@ -28,20 +31,26 @@ Message: <%= @message %>
 ```
 
 Q. Try it! Why doesn't this work?
----
 
-> A. Context. We redirect to a different page. A redirect is a separate GET request. Instance variables exist only on *one* request. They don't persist across requests.
+> A. Context. We redirect to a different page. A redirect is a separate GET
+request. Instance variables exist only on *one* request. They don't persist
+across requests.
 
-Q. We've seen two main ways of storing user data so it's available from page to page, and request to request. What are they?
----
+Q. We've seen two main ways of storing user data so it's available from page to
+page, and request to request. What are they?
 
-> A. We could store errors in the database, but that's hugely inefficient. A better idea would be to use temporary **session variables**, which you just learned about.
+> A. We could store errors in the database, but that's hugely inefficient. A
+better idea would be to use temporary **session variables**, which you just
+learned about.
 
 Rails has a built-in way of storing messages in sessions, called `flash`.
 
-`flash` is a hash that's created on one request, available through the next, then destroyed.  It was created to "flash" a message to the user and then go away.
+`flash` is a hash that's created on one request, available through the next,
+then destroyed.  It was created to "flash" a message to the user and then go
+away.
 
-Replace the `error` instance variable with `flash[:alert]` in your Artist controller to see it in action:
+Replace the `error` instance variable with `flash[:alert]` in your Artist
+controller to see it in action:
 
 ```rb
 # app/controllers/todos_controller.rb
@@ -61,46 +70,50 @@ Then, in `views/todos/show.html.erb`, replace the `@message` line with this:
 <% end %>
 ```
 
-#### Try it!
-
 ## [Flash convention](http://gaspull.geeksaresexytech.netdna-cdn.com/wp-content/uploads/2015/07/P1060110.jpg)
 
-We used `flash[:alert]`, but as with any hash, we can use `flash[:notice]`, `flash[:wombat]`, `flash[:bananapatch]`, `flash[:error]`, whatever.
+We used `flash[:alert]`, but as with any hash, we can use `flash[:notice]`,
+`flash[:wombat]`, `flash[:bananapatch]`, `flash[:error]`, whatever.
 
 It's convention to stick to two main ones: `:alert` and `:notice`.
 
 Q. Why should you stick to this convention?
----
-> Having one or two flash types makes it really easy to style your Flashes with CSS.  Also, rails provides special helpers for alert and notice.  In the [controllers](http://guides.rubyonrails.org/action_controller_overview.html#the-flash) and [views](http://api.rubyonrails.org/classes/ActionDispatch/Flash.html).
+
+> Having one or two flash types makes it really easy to style your Flashes with
+CSS.  Also, rails provides special helpers for alert and notice.  In the [controllers](http://guides.rubyonrails.org/action_controller_overview.html#the-flash) and [views](http://api.rubyonrails.org/classes/ActionDispatch/Flash.html).
 
 Consider:
 
 ```erb
 <!-- views/todos/show.html.erb -->
 <% flash.each do |type, message| %>
-  <p class="<%= type %>"><%= message %></p>
+  <p class="flash <%= type %>"><%= message %></p>
 <% end %>
 ```
 
 And this css:
+
 ```css
 /* app/assets/stylesheets/application.css */
-.alert{
-  color:red;
+
+.flash {
+  border: 1px solid black;
+  padding: 1em;
+  background: #eee;
 }
-.notice{
-  color:blue;
-}
+
+.alert  { color: red;  }
+.notice { color: blue; }
 ```
 
 
-Q. Presumably, we'd want to show error messages on any page. What problem do we run into now?
----
+Q. Presumably, we'd want to show error messages on any page. What problem do we
+run into now?
 
-> A. We only show flash messages on the Artist show page.
+> A. We only show flash messages on the Todo show page.
 
-Q. Where would be the best place to put the flash messages so we don't have to repeat anything?
----
+Q. Where would be the best place to put the flash messages so we don't have to
+repeat anything?
 
 > A. In `views/layouts/application.html.erb`
 
@@ -112,13 +125,14 @@ Q. Where would be the best place to put the flash messages so we don't have to r
   <a href="/incomplete">Incomplete</a>
 </nav>
 <% flash.each do |type, message| %>
-  <p class="<%= type %>"><%= message %></p>
+  <p class="flash <%= type %>"><%= message %></p>
 <% end %>
 ```
 
 ## Shorthand Flash (5 min)
 
-You can DRY up your code a bit by putting the flash message right in the `redirect_to`:
+You can DRY up your code a bit by putting the flash message right in the
+`redirect_to`:
 
 ```rb
 # app/controllers/todos_controller.rb
@@ -128,4 +142,13 @@ def create
 end
 ```
 
-Note that this only works with flashes named `notice:` or `alert:`. It does not work with `render`.
+Note that this only works with flashes named `notice:` or `alert:`. It does not
+work with `render`.
+
+## You Do: Add Flash Messages to Tunr
+
+Let the user know that Artists and Songs were successfully created and updated.
+
+Mini-Bonus:
+* Include the artist's name in the flash messages for artists
+* Include the songs's title in the flash messages for songs
