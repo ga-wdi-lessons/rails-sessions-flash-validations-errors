@@ -9,7 +9,7 @@ Most applications need to keep track of certain state of a particular user. HTTP
 
 ## Wheres my data being stored?
 
-TLDR version is a cookie. When you request a webpage, the server can set a cookie when it responds back. Your browser will store those cookies. And until the cookie expires, every time you make a request, your browser will send the cookies back to the server. By default in Rails 4 the session data is stored in the cookie itself using a thing called cookie store.(i can't make this stuff up) It's limited in size as a cookie can only maintain 4kb's of data. This is fine for our purposes since we should only be storing id's in it. Look into cache stores or database stores if you need a larger pool for session data.
+TLDR version is a cookie. When you request a webpage, the server can set a cookie when it responds back. Your browser will store those cookies. And until the cookie expires, every time you make a request, your browser will send the cookies back to the server. By default in Rails 4 the session data is stored in the cookie itself using a thing called a cookie store.(i can't make this stuff up) It's limited in size as a cookie can only maintain 4kb's of data. This is fine for our purposes since we should only be storing id's in it. Look into cache stores or database stores if you need a larger pool for session data.
 
 ## I do - Session Demo
 This all sounds great, how's it work? For this next part of the class. I'll just be demoing how sessions work. You don't need to follow along just grasp the concept. We'll be implementing sessions throughout today and the next class for you to get practice.
