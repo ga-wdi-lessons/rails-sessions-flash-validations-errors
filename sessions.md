@@ -5,7 +5,7 @@ Many of us have been to several webpages that only allow us to access content if
 
 ## What's in a session?
 
-Most applications need to keep track of certain state of a particular user. HTTP is by nature, stateless. Without the idea of sessions a user would have to identify themselves after every request. Our shopping carts in amazon couldn't keep their contents. Rails will create a new session automatically if a new user accesses the application. It will load an existing session if the user has already used the application. A session is just a place to store data during one request that you can read during later requests.
+Most applications need to keep track of certain state of a particular user. HTTP is by nature, stateless. Without the idea of sessions a user would have to identify themselves after every request. Our shopping carts in amazon couldn't keep their contents. Rails will create a new session automatically if a new user accesses the application. It will load an existing session if the user has already used the application. A session is just a place to store data during one request that you can read during later requests. Just like params, the session in ruby is a hash.
 
 ## Wheres my data being stored?
 
@@ -66,7 +66,7 @@ end
 <% end %>
 ```
 
-`app/views/sessions/another.html.erb`:
+`app/views/sessions/set_session.html.erb`:
 
 ```html
 <h1>Setting session</h1>
@@ -94,10 +94,11 @@ We can clearly see the string `bob` show up!
 
 Even if we navigate to another page that leverages that session value(`http://localhost:3000/another`), we can still leverage that same session value.
 
-This is a contrived use case of sessions but we can clearly see that the state of `session[:name] = "bob"` persisting from request to request. Normally sessions will be set in `POST` requests, because we're "creating" data.
+This is a contrived use case of sessions but we can clearly see that the state of `session[:name] = "bob"` persisting from request to request. Normally session values will be set in `POST` requests, because we're "creating" data.
 
 ## Sessions in the wild
-Sessions are used mostly for just a handful things but limited to:
+Sessions are used mostly for just a handful things but certainly not limited to these things:
+
 - User authentication/authorization
 - Shopping carts
 - Setting a current model to persist throughout requests
