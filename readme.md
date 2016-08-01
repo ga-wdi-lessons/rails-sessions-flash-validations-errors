@@ -30,7 +30,7 @@ Starter code can be found on the `edit-update` branch of the [tunr features repo
 
 ## Lesson Sections
 
-- [sessions](session.md)
+- [sessions](sessions.md)
 - [flash](flash.md)
 - [validations](validations.md)
 - [error_handling](error_handling.md)
