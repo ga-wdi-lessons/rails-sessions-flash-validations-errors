@@ -9,6 +9,7 @@
 
 ## Learning Objectives
 
+- Explain the purpose of sessions in Rails
 - Explain the purpose of `flash` in Rails
 - Compare and contrast `flash[:notice]` and `flash[:alert]`
 - List three ActiveRecord methods that trigger validations
@@ -29,6 +30,7 @@ Starter code can be found on the `edit-update` branch of the [tunr features repo
 
 ## Lesson Sections
 
+- [sessions](session.md)
 - [flash](flash.md)
 - [validations](validations.md)
 - [error_handling](error_handling.md)
