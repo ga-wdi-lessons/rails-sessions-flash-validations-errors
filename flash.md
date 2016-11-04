@@ -1,10 +1,8 @@
-# Messages to the User
+# Flashes / Flash Messages
 
-Our app works, but it also breaks quite easily. It's useful for *us* when the
-app breaks because we can see where all the errors are... but those big red
-error pages don't make for a very good user experience.
+## Framing (5min, 0:05)
 
-## Framing
+### Messages to the User
 
 It would be nice if we could find a *nice* way let the user know that their
 artist was successfully created.  
@@ -39,17 +37,20 @@ across requests.
 Q. We've seen two main ways of storing user data so it's available from page to
 page, and request to request. What are they?
 
-> A. We could store errors in the database, but that's hugely inefficient. A
+> A. We could store alerts in the database, but that's hugely inefficient. A
 better idea would be to use temporary **session variables**, which you just
 learned about.
 
 Rails has a built-in way of storing messages in sessions, called `flash`.
 
-`flash` is a hash that's created on one request, available through the next,
-then destroyed.  It was created to "flash" a message to the user and then go
+### Flash Lifecycle (5 min, 0:10)
+
+Flashes are brief. `flash` is a hash that's created on one request,
+available through the next, then destroyed. They exist only for a single
+request cycle. It was created to "flash" a message to the user and then go
 away.
 
-Replace the `error` instance variable with `flash[:alert]` in your Artist
+Replace the `@message` instance variable with `flash[:notice]` in your Artist
 controller to see it in action:
 
 ```rb
@@ -73,7 +74,7 @@ Then, in `views/todos/show.html.erb`, replace the `@message` line with this:
 ## [Flash convention](http://gaspull.geeksaresexytech.netdna-cdn.com/wp-content/uploads/2015/07/P1060110.jpg)
 
 We used `flash[:alert]`, but as with any hash, we can use `flash[:notice]`,
-`flash[:wombat]`, `flash[:bananapatch]`, `flash[:error]`, whatever.
+`flash[:wombat]`, `flash[:flashy_hashy]`, `flash[:error]`, whatever.
 
 It's convention to stick to two main ones: `:alert` and `:notice`.
 
@@ -107,7 +108,7 @@ And this css:
 ```
 
 
-Q. Presumably, we'd want to show error messages on any page. What problem do we
+Q. Presumably, we'd want to show flash messages on any page. What problem do we
 run into now?
 
 > A. We only show flash messages on the Todo show page.
