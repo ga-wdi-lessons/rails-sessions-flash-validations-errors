@@ -71,7 +71,7 @@ Then, in `views/todos/show.html.erb`, replace the `@message` line with this:
 <% end %>
 ```
 
-## [Flash convention](http://gaspull.geeksaresexytech.netdna-cdn.com/wp-content/uploads/2015/07/P1060110.jpg)
+## Flash Conventions (5min, 0:15)
 
 We used `flash[:alert]`, but as with any hash, we can use `flash[:notice]`,
 `flash[:wombat]`, `flash[:flashy_hashy]`, `flash[:error]`, whatever.
@@ -107,6 +107,7 @@ And this css:
 .notice { color: blue; }
 ```
 
+### Leveraging Application Layout (5min, 0:20)
 
 Q. Presumably, we'd want to show flash messages on any page. What problem do we
 run into now?
@@ -130,7 +131,7 @@ repeat anything?
 <% end %>
 ```
 
-## Shorthand Flash (5 min)
+## Shorthand Flash (5 min, 0:25)
 
 You can DRY up your code a bit by putting the flash message right in the
 `redirect_to`:
@@ -146,7 +147,7 @@ end
 Note that this only works with flashes named `notice:` or `alert:`. It does not
 work with `render`.
 
-## You Do: Add Flash Messages to Tunr
+## You Do: Add Flash Messages to Tunr (15min, 0:40)
 
 Let the user know that Artists and Songs were successfully created and updated.
 
