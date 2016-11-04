@@ -1,4 +1,4 @@
-# Error Handling
+# Sessions, Flash, Validations, & Error Handling
 
 ## Screencasts
 - [Part 1/5](https://youtu.be/sHSsc7EGI0g)
@@ -30,9 +30,9 @@ Starter code can be found on the `edit-update` branch of the [tunr features repo
 
 ## Lesson Sections
 
-- [sessions](sessions.md)
-- [flash](flash.md)
-- [validations](validations.md)
+- [sessions](sessions.md) (40min)
+- [flash](flash.md) (40 min)
+- [validations](validations.md) (40 min)
 - [error_handling](error_handling.md)
 
 # Sample Quiz Questions (5 min)

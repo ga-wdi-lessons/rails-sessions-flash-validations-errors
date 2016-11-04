@@ -237,7 +237,7 @@ all-lowercase. How could you fix that?
 Let's try using `.create` instead of `.new`:
 
 ```
-$ billy = Artist.create(name: "Billy Ray Cyrus")
+001> billy = Artist.create(name: "Billy Ray Cyrus")
 ```
 
 ### Rollback
