@@ -1,4 +1,3 @@
-
 # Error Handling
 
 We recommend you start a new branch for this portion.  We're sharing concepts, not, necessarily, best practices.
@@ -23,7 +22,7 @@ def show
   if @artist
     render :show
   else
-    redirect_to @artist
+    redirect_to artists_path
   end
 end
 ```
