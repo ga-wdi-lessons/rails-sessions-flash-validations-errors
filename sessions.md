@@ -1,17 +1,19 @@
 # Sessions
 
-## Framing
+## Framing (10min)
 Many of us have been to several webpages that only allow us to access content if we are users of the webpage. Annoying, yes, but quite necessary for many websites(but also probably just as many where it's just a barrier to entry... not every app needs user auth!). That said, how is this concept of "being signed in" done programmatically? How is that information persisted from request to request? Enter Sessions.
 
 ## What's in a session?
 
-Most applications need to keep track of certain state of a particular user. HTTP is by nature, stateless. Without the idea of sessions a user would have to identify themselves after every request. Our shopping carts in amazon couldn't keep their contents. Rails will create a new session automatically if a new user accesses the application. It will load an existing session if the user has already used the application. A session is just a place to store data during one request that you can read during later requests. Just like params, the session in ruby is a hash.
+Most applications need to keep track of certain state of a particular user. HTTP is by nature, stateless. Without the idea of sessions a user would have to identify themselves after every request. Our shopping carts in amazon couldn't keep their contents.
+
+Rails will create a new session automatically if a new user accesses the application. It will load an existing session if the user has already used the application. A session is just a place to store data during one request that you can read during later requests. Just like params, the session in ruby is a hash.
 
 ## Wheres my data being stored?
 
-TLDR version is a cookie. When you request a webpage, the server can set a cookie when it responds back. Your browser will store those cookies. And until the cookie expires, every time you make a request, your browser will send the cookies back to the server. By default in Rails 4 the session data is stored in the cookie itself using a thing called a cookie store.(i can't make this stuff up) It's limited in size as a cookie can only maintain 4kb's of data. This is fine for our purposes since we should only be storing id's in it. Look into cache stores or database stores if you need a larger pool for session data.
+TLDR version is a cookie. When you request a webpage, the server can set a cookie when it responds back. Your browser will store those cookies. And until the cookie expires, every time you make a request, your browser will send the cookies back to the server. By default in Rails 4 the session data is stored in the cookie itself using a thing called a cookie store (*cute*). It's limited in size as a cookie can only maintain 4kb's of data. Look into cache stores or database stores if you need a larger pool for session data.
 
-## I do - Session Demo
+## I do - Session Demo (15min)
 This all sounds great, how's it work? For this next part of the class. I'll just be demoing how sessions work. You don't need to follow along just grasp the concept. We'll be implementing sessions throughout today and the next class for you to get practice.
 
 Should you want to play with this code later, my starting point is [edit/feature branch of reminderly](https://github.com/ga-wdi-exercises/reminderly/tree/edit-feature)
@@ -95,6 +97,39 @@ We can clearly see the string `bob` show up!
 Even if we navigate to another page that leverages that session value(`http://localhost:3000/another`), we can still leverage that same session value.
 
 This is a contrived use case of sessions but we can clearly see that the state of `session[:name] = "bob"` persisting from request to request. Normally session values will be set in `POST` requests, because we're "creating" data.
+
+## Example: Todo History
+
+on the 2nd line of `TodosController.rb`:
+
+```rb
+before_action :set_session
+
+def set_session
+  session[:history] ||= []
+  # this is the same as:
+  # session[:history] = session[:history] || []
+  # if session[:history] hasn't been defined, it's falsey and then the OR operator || returns []. otherwise, it's set to equal itself
+  # tl;dr if it hasn't been defined yet, the code above defines it!
+end
+```
+
+```rb
+def show
+  @todo = Todo.find(params[:id])
+  #pushes the body of the current body being viewed to the sessions[:history] array
+  session[:history].push(@todo.body)
+end
+```
+
+in the application layout:
+```
+ Visited Todos: <%= session[:history] %>  
+```
+
+## You do (15min)
+
+Add session data to your Tunr! You could implement this for songs or artists
 
 ## Sessions in the wild
 Sessions are used mostly for just a handful things but certainly not limited to these things:
