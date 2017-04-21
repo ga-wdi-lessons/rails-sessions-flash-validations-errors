@@ -11,7 +11,7 @@ Rails will create a new session automatically if a new user accesses the applica
 
 ## Wheres my data being stored?
 
-TLDR version is a cookie. When you request a webpage, the server can set a cookie when it responds back. Your browser will store those cookies. And until the cookie expires, every time you make a request, your browser will send the cookies back to the server. By default in Rails 4 the session data is stored in the cookie itself using a thing called a cookie store (*cute*). It's limited in size as a cookie can only maintain 4kb's of data. Look into cache stores or database stores if you need a larger pool for session data.
+TLDR version is a cookie. When you request a webpage, the server can set a cookie when it responds back. Your browser will store those cookies. And until the cookie expires, every time you make a request, your browser will send the cookies back to the server. By default in Rails the session data is stored in the cookie itself using a thing called a cookie store (*cute*). It's limited in size as a cookie can only maintain 4kb's of data. Look into cache stores or database stores if you need a larger pool for session data.
 
 ## I do - Session Demo (15min)
 This all sounds great, how's it work? For this next part of the class. I'll just be demoing how sessions work. You don't need to follow along just grasp the concept. We'll be implementing sessions throughout today and the next class for you to get practice.
@@ -24,10 +24,10 @@ Let's go ahead and add a controller and some views that we'll need to demonstrat
 
 ```bash
 $ touch app/controllers/sessions_controller.rb
-$ mkdir views/sessions
-$ touch views/sessions/index.html.erb
-$ touch views/sessions/another_page.html.erb
-$ touch views/sessions/set_session.html.erb
+$ mkdir app/views/sessions
+$ touch app/views/sessions/index.html.erb
+$ touch app/views/sessions/another.html.erb
+$ touch app/views/sessions/set_session.html.erb
 ```
 
 Here are the contents for those files:
@@ -62,7 +62,7 @@ end
 `app/views/sessions/another.html.erb`:
 
 ```html
-<h1>Another pages to test sessions</h1>
+<h1>Another page to test sessions</h1>
 <% if @name %>
 <h2><%= @name %></h2>
 <% end %>
@@ -108,9 +108,8 @@ before_action :set_session
 def set_session
   session[:history] ||= []
   # this is the same as:
-  # session[:history] = session[:history] || []
-  # if session[:history] hasn't been defined, it's falsey and then the OR operator || returns []. otherwise, it's set to equal itself
-  # tl;dr if it hasn't been defined yet, the code above defines it!
+  # session[:history] || session[:history] = []
+  # if session[:history] has a value, carry on; if it's falsey (nil or false) then assign []
 end
 ```
 
